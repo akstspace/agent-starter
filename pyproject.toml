@@ -1,0 +1,38 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "Agent Starter"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.135.1",
+  "uvicorn[standard]>=0.41.0",
+  "PyJWT[crypto]>=2.11.0",
+  "pydantic-settings>=2.13.1",
+  "pydantic-ai-slim[openai,anthropic,google,vertexai,groq,mistral,cohere,bedrock,huggingface,openrouter,xai]>=1.65.0",
+  "slowapi>=0.1.9",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "pytest-asyncio>=0.24.0",
+  "ruff>=0.11.0",
+  "prek>=0.1.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"

@@ -1,0 +1,12 @@
+# Node/Bun dependencies
+node_modules/
+
+# Build outputs
+dist/
+
+# Local env
+.env
+.env.local
+
+# OS
+.DS_Store
