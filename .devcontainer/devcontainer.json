@@ -1,0 +1,40 @@
+{
+    "name": "Development Environment",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils": {
+            "installZsh": true,
+            "installOhMyZsh": true,
+            "installOhMyZshConfig": true,
+            "configureZshAsDefaultShell": true
+        },
+        "ghcr.io/devcontainers-extra/features/zsh-plugins:0": {
+            "plugins": "zsh-autosuggestions zsh-syntax-highlighting",
+            "omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions.git https://github.com/zsh-users/zsh-syntax-highlighting.git"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "editor.tabSize": 4,
+                "terminal.integrated.fontLigatures.enabled": true,
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.profiles.linux": {
+                    "zsh": {
+                        "path": "/bin/zsh",
+                        "icon": "terminal-ubuntu"
+                    }
+                }
+            }
+        }
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [5432],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "chmod +x .devcontainer/scripts/post-create.sh && .devcontainer/scripts/post-create.sh"
+    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+    // "remoteUser": "root"
+}

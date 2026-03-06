@@ -1,0 +1,40 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Mount workspace directory into container
+      # ../.. goes up two levels from .devcontainer folder to project root
+      # :cached improves performance on macOS by relaxing consistency guarantees
+      - ../..:/workspaces:cached
+    # Keep container running in background
+    command: sleep infinity
+    networks:
+      - dc-ubuntu-pg-network
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    environment:
+      # Default database credentials 
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - dc-ubuntu-pg-network
+
+volumes:
+  postgres-data:
+
+networks:
+  dc-ubuntu-pg-network:
+    # bridge driver: creates isolated network where containers can talk to each other
+    # Containers on the same bridge network can communicate using service names
+    driver: bridge
+
+  

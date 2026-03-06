@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.env*
+venv/
+.venv/
+tests/
+skills/
+pydantic-ai-skill/
+docs/
+test-ui/

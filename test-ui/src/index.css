@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@source "../node_modules/streamdown/dist/*.js";
+
+@layer base {
+  :root {
+    --background: 220 20% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 173 79% 34%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 220 16% 93%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 13% 91%;
+    --muted-foreground: 215 16% 40%;
+    --accent: 220 15% 90%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 84%;
+    --input: 220 13% 84%;
+    --chart-1: 200 88% 48%;
+    --chart-2: 258 90% 66%;
+    --chart-3: 26 96% 53%;
+    --chart-4: 152 62% 45%;
+    --chart-5: 340 82% 55%;
+    --chart-6: 46 96% 53%;
+    --radius: 0.9rem;
+  }
+
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 210 40% 98%;
+    --card: 222 45% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 45% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 173 79% 37%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 223 22% 16%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 223 20% 16%;
+    --muted-foreground: 217 12% 64%;
+    --accent: 223 20% 20%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 223 15% 24%;
+    --input: 223 15% 24%;
+    --chart-1: 191 92% 62%;
+    --chart-2: 270 96% 76%;
+    --chart-3: 30 98% 63%;
+    --chart-4: 160 84% 56%;
+    --chart-5: 347 90% 70%;
+    --chart-6: 49 96% 64%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-height: 100vh;
+    font-family: 'Space Grotesk', 'Avenir Next', sans-serif;
+    transition: color 220ms ease, background-color 220ms ease;
+  }
+
+  code,
+  pre {
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .dark body {
+    @apply bg-background;
+  }
+}
+
+@layer components {
+  .markdown {
+    @apply space-y-3;
+  }
+
+  .markdown p {
+    @apply text-sm leading-7 text-foreground;
+  }
+
+  .markdown a {
+    @apply text-primary;
+  }
+
+  .markdown h1,
+  .markdown h2,
+  .markdown h3 {
+    @apply text-foreground;
+  }
+
+  .markdown ul,
+  .markdown ol {
+    @apply text-sm;
+  }
+
+  .markdown pre {
+    @apply rounded-md bg-secondary p-3 text-xs;
+  }
+
+  .markdown blockquote {
+    @apply my-2;
+  }
+}
