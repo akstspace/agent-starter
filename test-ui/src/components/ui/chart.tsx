@@ -65,13 +65,9 @@ const ChartContainer = React.forwardRef<
 })
 ChartContainer.displayName = "Chart"
 
-const SAFE_CSS_IDENT = /^[A-Za-z0-9_-]+$/
-
 function sanitizeCssIdent(value: string): string {
-  if (!SAFE_CSS_IDENT.test(value)) {
-    return value.replace(/[^A-Za-z0-9_-]/g, "")
-  }
-  return value
+  const sanitized = value.replace(/[^A-Za-z0-9_-]/g, "")
+  return sanitized || "chart"
 }
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
