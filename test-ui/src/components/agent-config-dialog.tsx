@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Settings } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -39,13 +39,17 @@ export function AgentConfigDialog({
     onSave,
 }: AgentConfigDialogProps) {
     const [values, setValues] = useState<Record<string, string>>({});
+    const prevOpenRef = useRef(false);
 
     useEffect(() => {
-        const initial: Record<string, string> = {};
-        for (const field of configSchema) {
-            initial[field.name] = savedConfig[field.name] ?? field.default ?? '';
+        if (!prevOpenRef.current && open) {
+            const initial: Record<string, string> = {};
+            for (const field of configSchema) {
+                initial[field.name] = savedConfig[field.name] ?? field.default ?? '';
+            }
+            setValues(initial);
         }
-        setValues(initial);
+        prevOpenRef.current = open;
     }, [configSchema, savedConfig, open]);
 
     const handleChange = (name: string, value: string) => {
