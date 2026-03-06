@@ -21,7 +21,9 @@ import { math } from "@streamdown/math";
 import { mermaid } from "@streamdown/mermaid";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import {
+  Children,
   createContext,
+  isValidElement,
   memo,
   useCallback,
   useContext,
@@ -91,10 +93,11 @@ export const MessageAction = ({
   size = "icon-sm",
   ...props
 }: MessageActionProps) => {
+  const fallbackLabel = label || tooltip || "";
   const button = (
-    <Button size={size} type="button" variant={variant} {...props}>
+    <Button size={size} type="button" variant={variant} aria-label={fallbackLabel ? fallbackLabel : undefined} {...props}>
       {children}
-      <span className="sr-only">{label || tooltip}</span>
+      <span className="sr-only">{fallbackLabel}</span>
     </Button>
   );
 
@@ -203,7 +206,7 @@ export const MessageBranchContent = ({
 }: MessageBranchContentProps) => {
   const { currentBranch, setBranches, branches } = useMessageBranch();
   const childrenArray = useMemo(
-    () => (Array.isArray(children) ? children : [children]),
+    () => Children.toArray(children).filter(isValidElement) as ReactElement[],
     [children]
   );
 
@@ -220,7 +223,7 @@ export const MessageBranchContent = ({
         "grid gap-2 overflow-hidden [&>div]:pb-0",
         index === currentBranch ? "block" : "hidden"
       )}
-      key={branch.key}
+      key={branch.key ?? index}
       {...props}
     >
       {branch}

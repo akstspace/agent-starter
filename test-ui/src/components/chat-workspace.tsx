@@ -608,9 +608,6 @@ export function ChatWorkspace({
         continue;
       }
 
-      seenToolEventsRef.current.add(eventKey);
-      setSelectedWorkMessageId(latest.id);
-
       if (!nextAction && !pendingToolAction && toolCallId) {
         const choicePrompt = state === 'input-available' ? asChoicePrompt(typedPart.input) : null;
         const requiresUserAction =
@@ -635,8 +632,17 @@ export function ChatWorkspace({
             question: choicePrompt?.question,
             options: choicePrompt?.options ?? [],
           };
+          seenToolEventsRef.current.add(eventKey);
+          setSelectedWorkMessageId(latest.id);
+        } else {
+          seenToolEventsRef.current.add(eventKey);
         }
+      } else if (!toolCallId) {
+        // Events without toolCallId are never actionable, mark as seen
+        seenToolEventsRef.current.add(eventKey);
       }
+      // else: toolCallId exists but nextAction/pendingToolAction is already set;
+      // don't mark as seen so the event is picked up in the next effect run
 
       if (state === 'approval-requested') {
         onToolEvent({ eventType: 'approval', toolCallId, toolName, data: typedPart as Record<string, unknown> });
