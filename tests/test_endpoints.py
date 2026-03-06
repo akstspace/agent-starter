@@ -35,7 +35,8 @@ def test_health_returns_200(client: TestClient) -> None:
 
 
 def test_list_agents_test_mode_allows_no_token(
-    client: TestClient, auth_settings_mock,
+    client: TestClient,
+    auth_settings_mock,
 ) -> None:
     auth_settings_mock.test_mode = True
     response = client.get('/api/agents')
@@ -48,7 +49,8 @@ def test_list_agents_test_mode_allows_no_token(
 
 
 def test_list_agents_auth_mode_rejects_no_token(
-    client: TestClient, auth_settings_mock,
+    client: TestClient,
+    auth_settings_mock,
 ) -> None:
     auth_settings_mock.test_mode = False
     response = client.get('/api/agents')
@@ -56,7 +58,8 @@ def test_list_agents_auth_mode_rejects_no_token(
 
 
 def test_list_agents_auth_mode_rejects_bad_token(
-    client: TestClient, auth_settings_mock,
+    client: TestClient,
+    auth_settings_mock,
 ) -> None:
     auth_settings_mock.test_mode = False
     with patch.object(auth_dep, '_decode_token', side_effect=jwt.InvalidTokenError()):
@@ -68,11 +71,13 @@ def test_list_agents_auth_mode_rejects_bad_token(
 
 
 def test_list_agents_auth_mode_accepts_valid_token(
-    client: TestClient, auth_settings_mock,
+    client: TestClient,
+    auth_settings_mock,
 ) -> None:
     auth_settings_mock.test_mode = False
     with patch.object(
-        auth_dep, '_decode_token',
+        auth_dep,
+        '_decode_token',
         return_value={'sub': 'user-123', 'email': 'u@test.com', 'name': 'Test'},
     ):
         response = client.get(
@@ -87,7 +92,8 @@ def test_list_agents_auth_mode_accepts_valid_token(
 
 
 def test_agent_chat_unknown_agent_returns_404(
-    client: TestClient, auth_settings_mock,
+    client: TestClient,
+    auth_settings_mock,
 ) -> None:
     auth_settings_mock.test_mode = True
     response = client.post(
@@ -98,7 +104,8 @@ def test_agent_chat_unknown_agent_returns_404(
 
 
 def test_agent_chat_auth_mode_rejects_no_token(
-    client: TestClient, auth_settings_mock,
+    client: TestClient,
+    auth_settings_mock,
 ) -> None:
     auth_settings_mock.test_mode = False
     response = client.post(
@@ -109,7 +116,8 @@ def test_agent_chat_auth_mode_rejects_no_token(
 
 
 def test_agent_chat_auth_mode_rejects_bad_token(
-    client: TestClient, auth_settings_mock,
+    client: TestClient,
+    auth_settings_mock,
 ) -> None:
     auth_settings_mock.test_mode = False
     with patch.object(auth_dep, '_decode_token', side_effect=jwt.InvalidTokenError()):

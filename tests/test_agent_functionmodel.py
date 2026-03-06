@@ -1,4 +1,3 @@
-
 import json
 
 import pytest
@@ -139,6 +138,7 @@ async def test_functionmodel_approval_required_returns_deferred_requests() -> No
     metadata = result.output.metadata.get(first_approval.tool_call_id or '', {})
     assert metadata.get('key_name') == 'payments-service'
 
+
 def test_plot_config_enforces_data_point_limit() -> None:
     too_many_rows = [
         {'month': str(index), 'cost': index * 10}
@@ -185,6 +185,7 @@ def test_shadcn_plot_config_includes_chart_config() -> None:
     assert config['chart_type'] == 'BarChart'
     assert config['chart_config']['desktop']['color'] == 'hsl(var(--chart-1))'
     assert config['chart_config']['mobile']['color'] == 'hsl(var(--chart-2))'
+
 
 def _build_calculator_agent(tool_name: str, args: dict[str, object], final_text: str):
     """Build a calculator agent with a FunctionModel that calls a single tool."""
@@ -248,8 +249,9 @@ async def test_calculator_divide() -> None:
 
 @pytest.mark.asyncio
 async def test_calculator_divide_by_zero() -> None:
-    from app.tools.calculator_tools import divide
     from pydantic_ai import RunContext
+
+    from app.tools.calculator_tools import divide
 
     ctx = RunContext.__new__(RunContext)
     object.__setattr__(ctx, 'deps', AgentDeps(user_id='test'))

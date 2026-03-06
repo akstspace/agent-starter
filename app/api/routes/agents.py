@@ -132,7 +132,7 @@ async def agent_chat(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f'Unknown agent. Available agents: {valid_ids}',
-        )
+        ) from None
 
     raw_config = _extract_agent_config(request)
     validated_config = _validate_agent_config(agent_id, raw_config)

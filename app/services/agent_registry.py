@@ -1,4 +1,3 @@
-
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -57,8 +56,7 @@ _AGENT_DEFINITIONS: list[AgentDefinition] = [
         id='calculator',
         name='Calculator',
         description=(
-            'A focused arithmetic agent that can add, subtract, multiply, '
-            'and divide numbers.'
+            'A focused arithmetic agent that can add, subtract, multiply, and divide numbers.'
         ),
         system_prompt=(
             'You are a calculator assistant. '
