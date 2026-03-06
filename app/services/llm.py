@@ -58,6 +58,8 @@ def _hydrate_provider_env(model_name: str) -> None:
 
 
 def resolve_model_spec(model_name: str) -> str:
+    if not model_name or not model_name.strip():
+        raise ValueError('model_name cannot be empty or contain only whitespace')
     _hydrate_provider_env(model_name)
     candidate = model_name.strip()
     if ':' in candidate:

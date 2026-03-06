@@ -42,7 +42,8 @@ class AgentInfo(BaseModel):
 
 
 @router.get('')
-async def list_agents(user: CurrentUser) -> list[AgentInfo]:
+@limiter.limit('60/minute')
+async def list_agents(request: Request, user: CurrentUser) -> list[AgentInfo]:
     """Return all available agents."""
     return [
         AgentInfo(
